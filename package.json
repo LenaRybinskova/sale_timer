@@ -11,7 +11,7 @@
     "deploy": "gh-pages -d out",
     "export": "next build && next export"
   },
-  "homepage": "https://yourusername.github.io/my-nextjs-app",
+  "homepage": "https://LenaRybinskova.github.io/sale_timer/",
   "dependencies": {
     "next": "15.5.4",
     "react": "19.1.0",
