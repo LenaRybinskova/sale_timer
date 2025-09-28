@@ -9,7 +9,8 @@ import CheckIcon from '../../../public/assets/icons/CheckIcon';
 
 export default function Main() {
 
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState<boolean>(false)
+    const [selectedItem, setSelectedItem] = useState<boolean>(false)
 
     return (
         <main className={'flex w-full p-[26px] px-[172px]'}>
@@ -21,7 +22,7 @@ export default function Main() {
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
                     <figure className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
                         <div className={'flex items-center justify-center gap-[8px] mb-9 w-full'}>
-                            <Item/>
+                            <Item selected={selectedItem} onClick={() => setSelectedItem(true)}  />
                             <Item/>
                             <Item/>
                         </div>
@@ -31,27 +32,6 @@ export default function Main() {
                             месяца, люди получают в 2 раза лучший
                             результат, чем за 1 месяц</p>
 
-
-                        {/*                        <div className={"flex items-center justify-start w-full gap-[12px] mb-[50px]"}>
-                            <input type={'checkbox'} className={"w-[24px] h-[24px] rounded-[5px] accent-secondary cursor-pointer transition-all duration-300 ease-in-out"}/>
-                            <label  className={"text-text-second font-normal text-base leading-[110%]"}>
-                                Я соглашаюсь с <a href="/rules" className="text-text-privacy hover:underline">Правилами сервиса</a> и условиями<br />
-                                <a href="/offer" className="text-text-privacy hover:underline"> Публичной оферты</a>.
-                            </label >
-                        </div>*/}
-
-
-                        {/*  <div className={'flex items-center justify-start w-full gap-[12px] mb-[50px]'}>
-                            <button className={` flex items-center justify-center w-6 h-6 rounded-md border-2 transition-all duration-200 ${isChecked ? 'bg-teal-500 border-teal-500' : 'bg-white border-gray-300 hover:border-teal-400'}`}
-                                    aria-checked={isChecked} role="checkbox">
-
-                            </button>
-                            <label className={'text-text-second font-normal text-base leading-[110%]'}>
-                                Я соглашаюсь с <a href="/rules" className="text-text-privacy hover:underline">Правилами
-                                сервиса</a> и условиями<br/>
-                                <a href="/offer" className="text-text-privacy hover:underline"> Публичной оферты</a>.
-                            </label>
-                        </div>*/}
 
                         <div className={'flex items-center justify-start w-full gap-[12px] mb-[50px]'}>
                             <button
@@ -68,7 +48,7 @@ export default function Main() {
                             </label>
                         </div>
 
-                        <Button label={'купить'} className={'flex items-center justify-start self-start mb-[30px]'}/>
+                        <Button label={'купить'} className={'flex items-center justify-start self-start mb-[30px] animate-pulse duration-200'}/>
                         <p className={'flex items-center justify-start self-start text-text-second'}>
                             Нажимая «Купить», Пользователь соглашается на автоматическое списание денежных средств
                             по
