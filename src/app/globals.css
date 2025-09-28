@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+    font-family: "PT Root UI";
+    src: url("../styles/fonts/pt-root-ui_regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
+
+@font-face {
+    font-family: "PT Root UI";
+    src: url("../styles/fonts/pt-root-ui_medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "PT Root UI";
+    src: url("../styles/fonts/pt-root-ui_bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("../styles/fonts/Rubik-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("../styles/fonts/Rubik-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bebas Neue";
+    src: url("../styles/fonts/bebas-neue-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bebas Neue Cyrillic";
+    src: url("../styles/fonts/bebasneuecyrillic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+:root {
+    --color-background-primary: #f5f7f7;
+    --color-foreground-secondary: #fff;
+    --color-background-card: rgba(1, 185, 197, 0.05);
+    --color-primary: #fd4d35;
+    --color-secondary: #01b9c5;
+
+
+    --color-text: #2d3242;
+    --color-text-second:#818798;
+    --color-text-third:#687078;
+    --color-text-muted:#95979f;
+    --color-text-price:#2f4353;
+    --color-text-privacy:#2d97f9;;
+
+
+
+    --color-border: #d3d6dd;
+
+    --font-first: 'PT Root UI', sans-serif;
+    --font-second: "Bebas Neue Cyrillic", sans-serif;
+    --font-third: "Rubik", sans-serif;;
+    --font-fourth: "Bebas Neue", sans-serif;
+}
+
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+    --color-background: var(--color-background-primary);
+    --color-background-primary: var(--color-background-primary);
+    --color-foreground-secondary: var(--color-foreground-secondary);
+    --color-background-card: var(--color-background-card);
+    --color-primary: var(--color-primary);
+    --color-secondary: var(--color-secondary);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --color-text: var(--color-text);
+    --color-text-second:var(--color-text-second);
+    --color-text-third:var(--color-text-third);
+
+    --color-text-muted:var(--color-text-muted);
+    --color-text-price:var(--color-text-price);
+    --color-text-privacy:var(--color-text-privacy);
+
+    --color-border:var(--color-border);
+
+    --font-family-first: var(--font-first);
+    --font-family-second: var(--font-second);
+    --font-family-third: var(--font-third);
+    --font-family-fourth: var(--font-fourth);
+}
+html {
+    width: 1440px;
+    margin: 0 auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-background);
+    color: var(--foreground);
+    font-family: var(--font-family-first), sans-serif;
+    margin: 0 auto;
+    width: 1440px;
+    line-height: 1.0;
+}
+
+/*
+.font-rubik {
+    font-family: var(--font-family-third), sans-serif;
+}*/
+
+
+* {
+    transition: background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: flex;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+*,
+*::before,
+*::after {
+/*    margin: 0;*/
+
+    /*  padding: 0; */
+    box-sizing: border-box;
 }
