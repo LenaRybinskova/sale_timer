@@ -2,7 +2,7 @@ import {Ref, SVGProps, forwardRef, memo} from 'react';
 
 const DotIconSVG = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     <svg width="5" height="5" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
-        <circle cx="2.50366" cy="2.5" r="2.5" fill="#01B9C5"/>
+        <circle cx="2.50366" cy="2.5" r="2.5" fill="currentColor"/>
     </svg>
 );
 const ForwardRef = forwardRef(DotIconSVG);

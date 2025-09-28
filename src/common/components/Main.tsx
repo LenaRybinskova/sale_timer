@@ -3,14 +3,30 @@ import Image from 'next/image';
 import tgBe2Card from './../../../public/assets/image/to_be_2_card.png';
 import Item from '@/common/components/Item';
 import Button from '@/common/components/Button';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import CheckIcon from '../../../public/assets/icons/CheckIcon';
+import {useTimerContext} from '@/common/utils/TimerProvider';
 
 
 export default function Main() {
-
+    console.log("ререндер Main")
     const [isChecked, setIsChecked] = useState<boolean>(false)
     const [selectedItem, setSelectedItem] = useState<boolean>(false)
+    const [changePrice, setChangePrice]=useState(false)
+
+    const context = useTimerContext();
+    if (!context) return null;
+    const {endTime,  criticalTime} = context;
+
+    useEffect(() => {
+        if (criticalTime) {
+            setIsChecked(true);
+        }
+    }, [criticalTime]);
+
+    useEffect(() => {
+        setChangePrice(true)
+    }, [endTime]);
 
     return (
         <main className={'flex w-full p-[26px] px-[172px]'}>
