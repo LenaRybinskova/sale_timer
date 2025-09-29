@@ -1,41 +1,24 @@
 'use client';
-export type Tariff ={
-    name: string;
-    price: number;
-    minPrice?:number
-    originalPrice:number,
-    discountPercent:number,
-    lengthInDays: number;
-    isPopular: boolean;
-    isEndless: boolean;
-    isDiscount: boolean;
-    nonDiscountId: string | null;
-    id: string;
-    ownerId: string;
-    statusId: string | null;
-    creationDateTime: string;
-    deleted: boolean;
-}
 
-export type TariffMockType ={
+export type TariffMockItem ={
     name: string;
     price: number;
-    lengthInDays: number;
+    lengthInDays?: number;
     isPopular: boolean;
     isEndless: boolean;
     isDiscount: boolean;
-    nonDiscountId: string | null;
+    nonDiscountId?: string | null;
     id: string;
-    ownerId: string;
-    statusId: string | null;
-    creationDateTime: string;
-    deleted: boolean;
+    ownerId?: string;
+    statusId?: string | null;
+    creationDateTime?: string;
+    deleted?: boolean;
 }
 
 
 const mockData = {
     "00000000-0000-0000-0000-000000000000":{
-        "f347d050-073c-4969-ae91-7341111111":[ // 1 неделя
+        "f347d050-073c-4969-ae91-73411week":[ // 1 неделя
             {
                 "name": "1 неделя",
                 "price": 599,
@@ -44,7 +27,7 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": true,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7341111111",
+                "id": "f347d050-073c-4969-ae91-73411week",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -58,7 +41,7 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": false,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7341111111",
+                "id": "f347d050-073c-4969-ae91-73411week",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -72,44 +55,14 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": true,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7341111111",
+                "id": "f347d050-073c-4969-ae91-73411week",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
                 "deleted": false
             },
-            /*{
-                "name": "1 неделя",
-                "price": 5990,
-                "lengthInDays": 7,
-                "isPopular": false,
-                "isEndless": true,
-                "isDiscount": true,
-                "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7341111111",
-                "ownerId": "00000000-0000-0000-0000-000000000000",
-                "statusId": null,
-                "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
-                "deleted": false
-            },
-            {
-                "name": "1 неделя",
-                "price": 18990,
-                "lengthInDays": 7,
-                "isPopular": false,
-                "isEndless": true,
-                "isDiscount": false,
-                "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7341111111",
-                "ownerId": "00000000-0000-0000-0000-000000000000",
-                "statusId": null,
-                "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
-                "deleted": false
-            }*/
-
-
         ],
-        "f347d050-073c-4969-ae91-7342222222":[
+        "f347d050-073c-4969-ae91-7341month":[
             {
                 "name": "1 месяц",
                 "price": 799,
@@ -118,7 +71,7 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": true,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7342222222",
+                "id": "f347d050-073c-4969-ae91-7341month",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -132,7 +85,7 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": false,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7342222222",
+                "id": "f347d050-073c-4969-ae91-7341month",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -146,14 +99,14 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": true,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7342222222",
+                "id": "f347d050-073c-4969-ae91-7341month",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
                 "deleted": false
             },
         ],
-        "f347d050-073c-4969-ae91-7343333333":[ // 1 неделя
+        "f347d050-073c-4969-ae91-7343month":[ // 1 неделя
             {
                 "name": "3 месяца",
                 "price": 1690,
@@ -162,7 +115,7 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": true,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7343333333",
+                "id": "f347d050-073c-4969-ae91-7343month",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -176,7 +129,7 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": false,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7343333333",
+                "id": "f347d050-073c-4969-ae91-7343month",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -190,14 +143,14 @@ const mockData = {
                 "isEndless": false,
                 "isDiscount": true,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7343333333",
+                "id": "f347d050-073c-4969-ae91-7343month",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
                 "deleted": false
             },
         ],
-        "f347d050-073c-4969-ae91-7344444444":[{
+        "f347d050-073c-4969-ae91-73forever":[{
             "name": "навсегда",
             "price": 5990,
             "lengthInDays": 7,
@@ -205,7 +158,7 @@ const mockData = {
             "isEndless": true,
             "isDiscount": true,
             "nonDiscountId": null,
-            "id": "f347d050-073c-4969-ae91-7344444444",
+            "id": "f347d050-073c-4969-ae91-73forever",
             "ownerId": "00000000-0000-0000-0000-000000000000",
             "statusId": null,
             "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -219,7 +172,7 @@ const mockData = {
                 "isEndless": true,
                 "isDiscount": false,
                 "nonDiscountId": null,
-                "id": "f347d050-073c-4969-ae91-7344444444",
+                "id": "f347d050-073c-4969-ae91-73forever",
                 "ownerId": "00000000-0000-0000-0000-000000000000",
                 "statusId": null,
                 "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
@@ -230,81 +183,7 @@ const mockData = {
     }
 }
 
-
-
-
-
-const mockTariffs: Tariff[] = [
-    {
-        "name": "1 неделя",
-        "minPrice":599,
-        "price": 699,
-        "originalPrice": 999,
-        "discountPercent":30,
-        "lengthInDays": 7,
-        "isPopular": true,
-        "isEndless": false,
-        "isDiscount": false,
-        "nonDiscountId": null,
-        "id": "f347d050-073c-4969-ae91-7341111111",
-        "ownerId": "00000000-0000-0000-0000-000000000000",
-        "statusId": null,
-        "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
-        "deleted": false
-    },
-    {
-        "name": "1 месяц",
-        "price": 999,
-        "minPrice":799,
-        "originalPrice": 1690,
-        "discountPercent":40,
-        "lengthInDays": 30,
-        "isPopular": false,
-        "isEndless": false,
-        "isDiscount": true,
-        "nonDiscountId": "f347d050-073c-4969-ae91-7346f935cf71",
-        "id": "f347d050-073c-4969-ae91-7346f935cf72",
-        "ownerId": "00000000-0000-0000-0000-000000000000",
-        "statusId": null,
-        "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
-        "deleted": false
-    },
-    {
-        "name": "3 месяца",
-        "price": 2990,
-        "minPrice":1690,
-        "originalPrice": 5990,
-        "discountPercent":50,
-        "lengthInDays": 7,
-        "isPopular": true,
-        "isEndless": false,
-        "isDiscount": false,
-        "nonDiscountId": null,
-        "id": "f347d050-073c-4969-ae91-7346f935cf72",
-        "ownerId": "00000000-0000-0000-0000-000000000000",
-        "statusId": null,
-        "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
-        "deleted": false
-    },
-    {
-        "name": "Навсегда",
-        "price": 5990,
-        "originalPrice": 18990,
-        "discountPercent":70,
-        "lengthInDays": 0,
-        "isPopular": false,
-        "isEndless": true,
-        "isDiscount": true,
-        "nonDiscountId": "f347d050-073c-4969-ae91-7346f935cf73",
-        "id": "f347d050-073c-4969-ae91-7346f935cf74",
-        "ownerId": "00000000-0000-0000-0000-000000000000",
-        "statusId": null,
-        "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
-        "deleted": false
-    }
-];
-
 export const tariffApi = {
     getAllTariff: () =>
-        Promise.resolve({mockTariffs}),
+        Promise.resolve({mockData}),
 }

@@ -8,7 +8,7 @@ import CheckIcon from '../../../public/assets/icons/CheckIcon';
 import {useTimerContext} from '@/common/utils/TimerProvider';
 import {fetchTariffs} from '@/store/tariffsSlice';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
-import {Tariff} from '@/store/api';
+
 
 
 export default function Main() {
@@ -50,12 +50,12 @@ export default function Main() {
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
                     <figure className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
                         <div className={'flex items-center justify-center gap-[8px] mb-9 w-full'}>
-                            {tariffs.map(tariff => {
+                            {/*{tariffs.map(tariff => {
                                 return <Item selected={selectedItem} onClick={() => setSelectedItem(true)} name={tariff.name}/>
-                            })}
-                            {/*<Item selected={selectedItem} onClick={() => setSelectedItem(true)}  />
+                            })}*/}
+                            <Item selected={selectedItem} onClick={() => setSelectedItem(true)}  />
                             <Item/>
-                            <Item/>*/}
+                            <Item/>
                         </div>
                         <Item className={'w-full mb-[11px]'} variant={'horizontally'}/>
                         <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя плану
