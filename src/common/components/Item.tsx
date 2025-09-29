@@ -5,11 +5,17 @@ type Ptops = {
     className?: string
     variant?: 'horizontally' | 'vertically';
     selected?: boolean;
-    onClick:()=>void
-    name:string
+    onClick?:() => void
+
+    name?:string
+    discountMinPrice?:number
+    discountPrice?:number
+    price?:number
+    discountPercentage?:number
+    text?:string
 }
 
-export default function Item({className, variant, selected, name}: Ptops) {
+export default function Item({className, variant, selected, name, discountMinPrice, discountPrice, price,text, discountPercentage}: Ptops) {
 
 
     return (
@@ -32,19 +38,19 @@ export default function Item({className, variant, selected, name}: Ptops) {
             }`}>
 
                 <div className={`flex flex-col items-end ${variant === 'horizontally' ? 'w-auto' : 'w-full'}`}>
-                    <div className="color-text text-[50px] leading-[110%] font-bold">5990p</div>
-                    <div className="line-through text-text-muted">18 990p</div>
+                    <div className="color-text text-[50px] leading-[110%] font-bold">{discountPrice}p</div>
+                    <div className="line-through text-text-muted">{price}p</div>
                 </div>
 
             </div>
 
-            <span className={`color-text-price block  w-full font-medium text-base leading-[130%] text-text-price ${variant === 'horizontally' ? 'text-left' : 'text-center'}`}>Всегда быть в форме поддерживать своё здоровье ⭐️</span>
+            <span className={`color-text-price block  w-full font-medium text-base leading-[130%] text-text-price ${variant === 'horizontally' ? 'text-left' : 'text-center'}`}>{text}</span>
 
             <div className={'absolute -top-9 right-1 flex items-center justify-center'}>
                 <div className={'relative'}>
                     <SaleLabelSVG className={'w-12 h-12'}/>
                     <div className={'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm font-medium text-[18px] leading-[130%]'}>
-                        -40%
+                        -{discountPercentage}
                     </div>
                 </div>
             </div>

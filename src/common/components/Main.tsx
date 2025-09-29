@@ -6,8 +6,10 @@ import Button from '@/common/components/Button';
 import {useEffect, useState} from 'react';
 import CheckIcon from '../../../public/assets/icons/CheckIcon';
 import {useTimerContext} from '@/common/utils/TimerProvider';
-import {fetchTariffs} from '@/store/tariffsSlice';
+import {fetchTariffs, selectForever, selectNotForever} from '@/store/tariffsSlice';
 import {useAppDispatch, useAppSelector} from '@/store/hooks';
+import {useSelector} from 'react-redux';
+import {tariffApi} from '@/store/api';
 
 
 
@@ -19,8 +21,11 @@ export default function Main() {
     const [changePrice, setChangePrice] = useState(false)
 
     const dispatch = useAppDispatch();
-    const tariffs = useAppSelector(state => state.tariffs);
-    console.log('tariffs:', tariffs)
+    const notForeverTariffs = useSelector(selectNotForever);
+    const foreverTariffs = useSelector(selectForever);
+
+    console.log('foreverTariffs:', foreverTariffs)
+    console.log('notForeverTariffs:', notForeverTariffs)
 
     const context = useTimerContext();
     if (!context) return null;
@@ -53,9 +58,26 @@ export default function Main() {
                             {/*{tariffs.map(tariff => {
                                 return <Item selected={selectedItem} onClick={() => setSelectedItem(true)} name={tariff.name}/>
                             })}*/}
-                            <Item selected={selectedItem} onClick={() => setSelectedItem(true)}  />
+
+
+{/*                            <Item selected={selectedItem} onClick={() => setSelectedItem(true)}  />
                             <Item/>
-                            <Item/>
+                            <Item/>*/}
+                            {notForeverTariffs.map((tariff) => {
+                                return (
+                                    <Item
+                                        key={tariff.id}
+                                        name={tariff.type}
+                                        discountMinPrice={tariff.discountMinPrice}
+                                        discountPrice={tariff.discountPrice}
+                                        price={tariff.price}
+                                        discountPercentage={tariff.discountPercentage}
+                                        text={tariff.text}
+                                    />
+                                )
+                            })}
+
+
                         </div>
                         <Item className={'w-full mb-[11px]'} variant={'horizontally'}/>
                         <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя плану

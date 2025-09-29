@@ -1,18 +1,42 @@
-
 export const transformTariffs = (mockData: any) => {
     if (!mockData || typeof mockData !== 'object') {
         console.error('Invalid data format:', mockData);
-        return {};
+        return { forever: [], notForever: [] };
     }
 
-    const result: { [ownerId: string]: { [key: string]: any } } = {};
+    const result = {
+        forever: [] as any[],
+        notForever: [] as any[]
+    };
+
+    // Функция для расчета процента скидки
+    const calculateDiscountPercentage = (originalPrice: number, discountPrice: number): number => {
+        if (!originalPrice || !discountPrice || originalPrice <= discountPrice) {
+            return 0;
+        }
+        return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
+    };
+
+    // Функция для получения текста по типу тарифа
+    const getTariffText = (type: string): string => {
+        switch (type) {
+            case '1 неделя':
+                return 'Чтобы просто начать 👍🏻';
+            case '1 месяц':
+                return 'Привести тело впорядок 💪🏻';
+            case '3 месяца':
+                return 'Изменить образ жизни 🔥';
+            case 'навсегда':
+                return 'Всегда быть в форме и поддерживать своё здоровье ⭐️';
+            default:
+                return '';
+        }
+    };
 
     Object.entries(mockData).forEach(([ownerId, tariffsData]) => {
         if (!tariffsData || typeof tariffsData !== 'object') {
             return;
         }
-
-        result[ownerId] = {};
 
         Object.entries(tariffsData as { [key: string]: any[] }).forEach(([tariffId, items]) => {
             if (!Array.isArray(items) || items.length === 0) {
@@ -24,21 +48,54 @@ export const transformTariffs = (mockData: any) => {
                 return;
             }
 
-            let tariffKey: string;
             const name = firstItem.name.toLowerCase();
 
-            if (name.includes('недел') || name.includes('week')) tariffKey = 'OneWeek';
-            else if (name.includes('1 месяц') || name.includes('1 month')) tariffKey = 'OneMonth';
-            else if (name.includes('3 месяц') || name.includes('3 month')) tariffKey = 'ThreeMonth';
-            else if (name.includes('навсегда') || name.includes('forever')) tariffKey = 'forever';
-            else {
-                console.warn('Unknown tariff name:', firstItem.name);
-                return;
+            // Обрабатываем тариф "навсегда"
+            if (name.includes('навсегда') || name.includes('forever')) {
+                const transformed: any = {
+                    type: 'навсегда',
+                    id: tariffId,
+                    text: getTariffText('навсегда') // добавляем текст
+                };
+
+                items.forEach(item => {
+                    if (item.isDiscount === true) {
+                        transformed.foreverDiscountPrice = item.price;
+                    } else if (item.isDiscount === false) {
+                        transformed.foreverPrice = item.price;
+                    }
+                });
+
+                // Расчет скидки для forever тарифа
+                if (transformed.foreverPrice && transformed.foreverDiscountPrice) {
+                    transformed.discountPercentage = calculateDiscountPercentage(
+                        transformed.foreverPrice,
+                        transformed.foreverDiscountPrice
+                    );
+                }
+
+                result.forever.push(transformed);
             }
+            // Обрабатываем обычные тарифы
+            else {
+                let type = '';
+                if (name.includes('недел') || name.includes('week')) {
+                    type = '1 неделя';
+                } else if (name.includes('1 месяц') || name.includes('1 month')) {
+                    type = '1 месяц';
+                } else if (name.includes('3 месяц') || name.includes('3 month')) {
+                    type = '3 месяца';
+                } else {
+                    console.warn('Unknown tariff name:', firstItem.name);
+                    return;
+                }
 
+                const transformed: any = {
+                    type,
+                    id: tariffId,
+                    text: getTariffText(type) // добавляем текст
+                };
 
-            if (!firstItem.isEndless) {
-                const transformed: any = { id: tariffId };
                 items.forEach(item => {
                     if (item.isPopular === false && item.isDiscount === true) {
                         transformed.discountMinPrice = item.price;
@@ -48,24 +105,19 @@ export const transformTariffs = (mockData: any) => {
                         transformed.price = item.price;
                     }
                 });
-                result[ownerId][tariffKey] = transformed;
-            }
 
-            else {
-                const transformed: any = { id: tariffId };
-                items.forEach(item => {
-                    if (item.isDiscount === true) {
-                        transformed.foreverDiscountPrice = item.price;
-                    } else if (item.isDiscount === false) {
-                        transformed.foreverPrice = item.price;
-                    }
-                });
+                // Расчет скидки для обычных тарифов (между discountPrice и price)
+                if (transformed.price && transformed.discountPrice) {
+                    transformed.discountPercentage = calculateDiscountPercentage(
+                        transformed.price,
+                        transformed.discountPrice
+                    );
+                }
 
-                result[ownerId][tariffKey] = transformed;
+                result.notForever.push(transformed);
             }
         });
     });
 
-    console.log('Transformed tariffs:', result);
     return result;
 };
