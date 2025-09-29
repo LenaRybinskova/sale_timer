@@ -22,10 +22,11 @@ export default function Item({className, variant, selected, name, discountMinPri
         <div className={`w-full flex border-2 border-border rounded-[20px] relative transition-all duration-300 ease-in-out hover:bg-background-card hover:border-secondary cursor-pointer
          ${selected ? 'bg-background-card border-secondary' : 'bg-foreground-secondary'} 
          ${className} ${variant === 'horizontally'
-            ? 'flex-row  items-start justify-center  p-[31px_57px_26px_37px]'
+            ? 'flex-row  items-start justify-center  p-[31px_57px_26px_37px] '
             : 'flex-col  items-center justify-center gap-[26px] p-[45px_35px_26px_37px]'}  `}>
 
-            <h3 className={`${variant === 'horizontally'
+            <h3 className={`whitespace-nowrap 
+   ${variant === 'horizontally'
                 ? 'color-text text-left text-[38px] leading-[100%] uppercase font-family-second font-normal mt-[10px] mr-[22px]'
                 : 'text-text-third text-center text-[30px] leading-[100%] uppercase font-family-second font-normal '
             }`}>

@@ -54,15 +54,7 @@ export default function Main() {
 
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
                     <figure className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
-                        <div className={'flex items-center justify-center gap-[8px] mb-9 w-full'}>
-                            {/*{tariffs.map(tariff => {
-                                return <Item selected={selectedItem} onClick={() => setSelectedItem(true)} name={tariff.name}/>
-                            })}*/}
-
-
-{/*                            <Item selected={selectedItem} onClick={() => setSelectedItem(true)}  />
-                            <Item/>
-                            <Item/>*/}
+                        <div className={'flex items-stretch justify-center  gap-[8px] mb-9 w-full h-[260px]'}>
                             {notForeverTariffs.map((tariff) => {
                                 return (
                                     <Item
@@ -73,10 +65,10 @@ export default function Main() {
                                         price={tariff.price}
                                         discountPercentage={tariff.discountPercentage}
                                         text={tariff.text}
+                                        className="flex-1"
                                     />
                                 )
                             })}
-
 
                         </div>
                         {foreverTariffs.map((tariff) => (
