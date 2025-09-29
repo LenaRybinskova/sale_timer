@@ -3,34 +3,29 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {tariffApi} from '@/store/api';
 import {transformTariffs} from '@/store/utils';
 
-export type  TransformedTariff ={
+
+export type MonthlyTariffType={
+    type: string;
     id: string;
     discountMinPrice?: number;
     discountPrice?: number;
     price?: number;
+    discountPercentage?:number
+    text?:string
+}
+
+export type ForeverTariffType={
+    type: string;
+    id: string;
     foreverDiscountPrice?: number;
     foreverPrice?: number;
     discountPercentage?:number
+    text?:string
 }
 
 export type TariffsState ={
-    forever: Array<{
-        type: string;
-        id: string;
-        foreverDiscountPrice?: number;
-        foreverPrice?: number;
-        discountPercentage?:number
-        text?:string
-    }>;
-    notForever: Array<{
-        type: string;
-        id: string;
-        discountMinPrice?: number;
-        discountPrice?: number;
-        price?: number;
-        discountPercentage?:number
-        text?:string
-    }>;
+    forever: ForeverTariffType[];
+    notForever:MonthlyTariffType[];
 }
 
 const initialState: TariffsState = {

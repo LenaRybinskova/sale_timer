@@ -7,29 +7,27 @@ import {useEffect, useState} from 'react';
 import CheckIcon from '../../../public/assets/icons/CheckIcon';
 import {useTimerContext} from '@/common/utils/TimerProvider';
 import {fetchTariffs, selectForever, selectNotForever} from '@/store/tariffsSlice';
-import {useAppDispatch, useAppSelector} from '@/store/hooks';
+import {useAppDispatch} from '@/store/hooks';
 import {useSelector} from 'react-redux';
-import {tariffApi} from '@/store/api';
 
 
 
 export default function Main() {
     console.log('ререндер Main')
     const [isChecked, setIsChecked] = useState<boolean>(false)
-    const [selectedItem, setSelectedItem] = useState<boolean>(false)
 
-    const [changePrice, setChangePrice] = useState(false)
 
     const dispatch = useAppDispatch();
-    const notForeverTariffs = useSelector(selectNotForever);
+    const monthlyTariffs = useSelector(selectNotForever);
     const foreverTariffs = useSelector(selectForever);
 
     console.log('foreverTariffs:', foreverTariffs)
-    console.log('notForeverTariffs:', notForeverTariffs)
+    console.log('notForeverTariffs:', monthlyTariffs)
 
     const context = useTimerContext();
     if (!context) return null;
     const {endTime, criticalTime} = context;
+    console.log("context.endTime", context.endTime)
 
     useEffect(() => {
         dispatch(fetchTariffs())
@@ -41,9 +39,8 @@ export default function Main() {
         }
     }, [criticalTime]);
 
-    useEffect(() => {
-        setChangePrice(true)
-    }, [endTime]);
+
+
 
     return (
         <main className={'flex w-full p-[26px] px-[172px]'}>
@@ -55,7 +52,7 @@ export default function Main() {
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
                     <figure className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
                         <div className={'flex items-stretch justify-center  gap-[8px] mb-9 w-full h-[260px]'}>
-                            {notForeverTariffs.map((tariff) => {
+                            {monthlyTariffs.map((tariff) => {
                                 return (
                                     <Item
                                         key={tariff.id}
@@ -66,6 +63,7 @@ export default function Main() {
                                         discountPercentage={tariff.discountPercentage}
                                         text={tariff.text}
                                         className="flex-1"
+                                        endTime={endTime}
                                     />
                                 )
                             })}
@@ -81,6 +79,7 @@ export default function Main() {
                                 name={tariff.type}
                                 discountPercentage={tariff.discountPercentage}
                                 text={tariff.text}
+                                endTime={endTime}
                             />
                         ))}
                         <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя плану
@@ -112,12 +111,8 @@ export default function Main() {
                             осуществляются по полной стоимости согласно оферте.
                         </p>
                     </figure>
-
                 </section>
-
             </div>
-
-
         </main>
     );
 }

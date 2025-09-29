@@ -9,7 +9,7 @@ export const transformTariffs = (mockData: any) => {
         notForever: [] as any[]
     };
 
-    // Функция для расчета процента скидки
+
     const calculateDiscountPercentage = (originalPrice: number, discountPrice: number): number => {
         if (!originalPrice || !discountPrice || originalPrice <= discountPrice) {
             return 0;
@@ -17,7 +17,6 @@ export const transformTariffs = (mockData: any) => {
         return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
     };
 
-    // Функция для получения текста по типу тарифа
     const getTariffText = (type: string): string => {
         switch (type) {
             case '1 неделя':
@@ -50,7 +49,6 @@ export const transformTariffs = (mockData: any) => {
 
             const name = firstItem.name.toLowerCase();
 
-            // Обрабатываем тариф "навсегда"
             if (name.includes('навсегда') || name.includes('forever')) {
                 const transformed: any = {
                     type: 'навсегда',
@@ -66,7 +64,6 @@ export const transformTariffs = (mockData: any) => {
                     }
                 });
 
-                // Расчет скидки для forever тарифа
                 if (transformed.foreverPrice && transformed.foreverDiscountPrice) {
                     transformed.discountPercentage = calculateDiscountPercentage(
                         transformed.foreverPrice,
@@ -76,7 +73,6 @@ export const transformTariffs = (mockData: any) => {
 
                 result.forever.push(transformed);
             }
-            // Обрабатываем обычные тарифы
             else {
                 let type = '';
                 if (name.includes('недел') || name.includes('week')) {
@@ -93,7 +89,7 @@ export const transformTariffs = (mockData: any) => {
                 const transformed: any = {
                     type,
                     id: tariffId,
-                    text: getTariffText(type) // добавляем текст
+                    text: getTariffText(type)
                 };
 
                 items.forEach(item => {

@@ -5,7 +5,7 @@ import {useTimerContext} from '@/common/utils/TimerProvider';
 
 export default function Header() {
     console.log('ререндер Header')
-    const [timeLeft, setTimeLeft] = useState(120);
+    const [timeLeft, setTimeLeft] = useState(5);
 
     const context = useTimerContext();
     if (!context) return null;
@@ -44,8 +44,6 @@ export default function Header() {
                     <div className={'flex items-center justify- gap-4 '}>
 
                         {/*//Count*/}
-
-
                         <div className={`flex  text-[60px] font-family-fourth leading-none font-bold ${endTime ? "text-primary":"text-secondary" }`}>
                             {minutes.toString().padStart(2, '0')}
                         </div>
