@@ -79,7 +79,18 @@ export default function Main() {
 
 
                         </div>
-                        <Item className={'w-full mb-[11px]'} variant={'horizontally'}/>
+                        {foreverTariffs.map((tariff) => (
+                            <Item
+                                key={tariff.id}
+                                className={'w-full mb-[11px]'}
+                                variant={'horizontally'}
+                                discountPrice={tariff.foreverDiscountPrice}
+                                price={tariff.foreverPrice}
+                                name={tariff.type}
+                                discountPercentage={tariff.discountPercentage}
+                                text={tariff.text}
+                            />
+                        ))}
                         <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя плану
                             на 3
                             месяца, люди получают в 2 раза лучший
