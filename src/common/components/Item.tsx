@@ -6,9 +6,10 @@ type Ptops = {
     variant?: 'horizontally' | 'vertically';
     selected?: boolean;
     onClick:()=>void
+    name:string
 }
 
-export default function Item({className, variant, selected}: Ptops) {
+export default function Item({className, variant, selected, name}: Ptops) {
 
 
     return (
@@ -22,7 +23,7 @@ export default function Item({className, variant, selected}: Ptops) {
                 ? 'color-text text-left text-[38px] leading-[100%] uppercase font-family-second font-normal mt-[10px] mr-[22px]'
                 : 'text-text-third text-center text-[30px] leading-[100%] uppercase font-family-second font-normal '
             }`}>
-                навсегда
+                {name}
             </h3>
 
             <div className={`flex flex-col text-price ${variant === 'horizontally'
