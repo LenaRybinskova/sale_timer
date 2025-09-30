@@ -1,6 +1,8 @@
 
 ## Sale timer
 
+deploy: https://sale-timer-lena-3.amvera.io/
+
 Тестовове задание выполнено на технологиях:
 - React
 - Next
