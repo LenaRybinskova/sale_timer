@@ -1,22 +1,20 @@
 'use client';
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {ItemMemo} from '@/common/components/Item';
+import {ForeverTariffType, MonthlyTariffType} from '@/store/tariffsSlice';
 
-export const TariffList = React.memo(({
-                                          monthlyTariffs,
-                                          foreverTariffs,
-                                          selectItemId,
-                                          criticalTime,
-                                          endTime,
-                                          selectItemHandler
-                                      }: {
-    monthlyTariffs: any[],
-    foreverTariffs: any[],
-    selectItemId: string,
+export const ItemsList = React.memo(({monthlyTariffs, foreverTariffs, criticalTime, endTime}: {
+    monthlyTariffs: MonthlyTariffType[],
+    foreverTariffs: ForeverTariffType[],
     criticalTime: boolean,
-    endTime: boolean,
-    selectItemHandler: (id: string) => void
+    endTime: boolean
 }) => {
+    const [selectItemId, setSelectItemId] = useState<string | ''>('');
+
+    const selectItemHandler = useCallback((itemId: string) => {
+        setSelectItemId(itemId);
+    }, []);
+
     return (
         <>
             <div className={'flex items-stretch justify-center gap-[8px] mb-9 w-full h-[260px]'}>
@@ -59,4 +57,4 @@ export const TariffList = React.memo(({
     );
 });
 
-TariffList.displayName = 'TariffList';
+ItemsList.displayName = 'ItemsList';

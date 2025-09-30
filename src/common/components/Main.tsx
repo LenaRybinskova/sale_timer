@@ -2,20 +2,17 @@
 import Image from 'next/image';
 import tgBe2Card from './../../../public/assets/image/to_be_2_card.png';
 import Button from '@/common/components/Button';
-import {useCallback, useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import CheckIcon from '../../../public/assets/icons/CheckIcon';
-import {useTimerContext} from '@/common/utils/TimerProvider';
-import {fetchTariffs, selectForever, selectNotForever} from '@/store/tariffsSlice';
-import {useAppDispatch} from '@/store/hooks';
-import {useSelector} from 'react-redux';
-import {ItemMemo} from '@/common/components/Item';
-import {TariffList} from '@/common/components/ItemsList';
-
+import { useTimerContext } from '@/common/utils/TimerProvider';
+import { fetchTariffs, selectForever, selectNotForever } from '@/store/tariffsSlice';
+import { useAppDispatch } from '@/store/hooks';
+import { useSelector } from 'react-redux';
+import { ItemsList } from '@/common/components/ItemsList';
 
 export default function Main() {
     console.log('ререндер Main')
     const [isChecked, setIsChecked] = useState<boolean>(false)
-    const [selectItemId, seSelectItemId] = useState<string | ''>('')
 
     const dispatch = useAppDispatch();
     const monthlyTariffs = useSelector(selectNotForever);
@@ -23,7 +20,7 @@ export default function Main() {
 
     const context = useTimerContext();
     if (!context) return null;
-    const {endTime, criticalTime} = context;
+    const { endTime, criticalTime } = context;
 
     useEffect(() => {
         dispatch(fetchTariffs())
@@ -35,65 +32,27 @@ export default function Main() {
         }
     }, [criticalTime]);
 
-    const selectItemHandler = useCallback((itemId: string) => {
-        seSelectItemId(itemId)
-    }, []);
-
     return (
         <main className={'flex w-full p-[26px] px-[172px]'}>
             <div className={'flex items-center justify-center w-full flex-col'}>
-                <h1 className={'flex items-center justify-center font-bold text-[40px] leading-[110%] tracking-[0.01em] uppercase font-family-third mb-[108px]'}>выберите
-                    подходящий тарифный план</h1>
-                <section className={'flex items-start justify-between  w-full'}>
+                <h1 className={'flex items-center justify-center font-bold text-[40px] leading-[110%] tracking-[0.01em] uppercase font-family-third mb-[108px]'}>
+                    выберите подходящий тарифный план
+                </h1>
+                <section className={'flex items-start justify-between w-full'}>
 
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
-                    <figure className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
-                        <div className={'flex items-stretch justify-center  gap-[8px] mb-9 w-full h-[260px]'}>
+                    <div className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
 
+                        <ItemsList
+                            monthlyTariffs={monthlyTariffs}
+                            foreverTariffs={foreverTariffs}
+                            criticalTime={criticalTime}
+                            endTime={endTime}
+                        />
 
-                            {monthlyTariffs.map((tariff) => {
-                                return (
-                                    <ItemMemo
-                                        key={tariff.id}
-                                        id={tariff.id}
-                                        name={tariff.type}
-                                        discountMinPrice={tariff.discountMinPrice}
-                                        discountPrice={tariff.discountPrice}
-                                        price={tariff.price}
-                                        discountPercentage={tariff.discountPercentage}
-                                        text={tariff.text}
-                                        className="flex-1"
-                                        criticalTime={criticalTime}
-                                        endTime={endTime}
-                                        selected={selectItemId === tariff.id}
-                                        callbackSelectItem={selectItemHandler}
-                                    />
-                                )
-                            })}
-
-                        </div>
-                        {foreverTariffs.map((tariff) => (
-                            <ItemMemo
-                                key={tariff.id}
-                                id={tariff.id}
-                                className={'w-full mb-[11px]'}
-                                variant={'horizontally'}
-                                discountPrice={tariff.foreverDiscountPrice}
-                                price={tariff.foreverPrice}
-                                name={tariff.type}
-                                discountPercentage={tariff.discountPercentage}
-                                text={tariff.text}
-                                endTime={endTime}
-                                selected={selectItemId === tariff.id}
-                                callbackSelectItem={selectItemHandler}
-                            />
-                        ))}
-                        <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя
-                            плану
-                            на 3
-                            месяца, люди получают в 2 раза лучший
-                            результат, чем за 1 месяц</p>
-
+                        <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>
+                            Следуя плану на 3 месяца, люди получают в 2 раза лучший результат, чем за 1 месяц
+                        </p>
 
                         <div className={'flex items-center justify-start w-full gap-[12px] mb-[50px]'}>
                             <button
@@ -113,14 +72,12 @@ export default function Main() {
                         <Button label={'купить'} className={'flex items-center justify-start self-start mb-[30px] animate-pulse duration-200 uppercase'}/>
                         <p className={'flex items-center justify-start self-start text-text-second'}>
                             Нажимая «Купить», Пользователь соглашается на автоматическое списание денежных средств
-                            по
-                            истечению купленного периода. Дальнейшие списания по тарифам участвующим в акции
+                            по истечению купленного периода. Дальнейшие списания по тарифам участвующим в акции
                             осуществляются по полной стоимости согласно оферте.
                         </p>
-                    </figure>
+                    </div>
                 </section>
             </div>
         </main>
     );
 }
-

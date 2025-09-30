@@ -49,8 +49,6 @@ const tariffsSlice = createSlice({
 }
 );
 
-
-
 export const fetchTariffs = createAsyncThunk(
     'tariffs/fetchTariffs',
     async () => {
