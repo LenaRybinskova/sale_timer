@@ -23,7 +23,7 @@ console.log("Home данные слайсов:",MonthlyTariffs )
         <>
             <Main/>
 
-            <Portal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} backdropClass="bg-black/50">
+            <Portal isOpen={true} onClose={() => setIsOpenModal(false)} backdropClass="bg-black/50">
                 <Popup items={MonthlyTariffs}/>
             </Portal>
         </>

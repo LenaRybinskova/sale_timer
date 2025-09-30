@@ -69,7 +69,9 @@
     --color-text-third:#687078;
     --color-text-muted:#95979f;
     --color-text-price:#2f4353;
-    --color-text-privacy:#2d97f9;;
+    --color-text-privacy:#2d97f9;
+    --color-br:#e7eaf1;;
+
 
     --color-border: #d3d6dd;
 
@@ -98,6 +100,7 @@
     --color-opacity:var(--color-opacity);
 
     --color-border:var(--color-border);
+    --color-br:var( --color-br);
 
     --font-family-first: var(--font-first);
     --font-family-second: var(--font-second);
