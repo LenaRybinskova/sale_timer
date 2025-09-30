@@ -17,6 +17,7 @@ export default function Main() {
     const dispatch = useAppDispatch();
     const monthlyTariffs = useSelector(selectNotForever);
     const foreverTariffs = useSelector(selectForever);
+    console.log("monthlyTariffs", monthlyTariffs)
 
     const context = useTimerContext();
 /*    if (!context) return null;*/
@@ -41,7 +42,6 @@ export default function Main() {
             setIsChecked(true);
         }
     }, [criticalTime]);
-
 
 
     return (

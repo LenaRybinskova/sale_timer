@@ -1,0 +1,13 @@
+meta:
+  environment: node
+  toolchain:
+    name: npm
+    version: latest
+build:
+  additionalCommands: npm install
+  artifacts:
+    "*": /
+run:
+  command: npm run dev
+  persistenceMount: /data
+  containerPort: "3000"

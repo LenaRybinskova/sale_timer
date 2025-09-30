@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Sale timer
 
-First, run the development server:
+Тестовове задание выполнено на технологиях:
+- React
+- Next
+- Tailwind
+- Redux tool kit
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Комментарии к проекту:
+Тк предоставленная ссылка не работает, данные с замоканы.
+"С бека" приходят данные в формате массива объектов (см.ниже), сочетание полей isPopular, isEndless, isDiscount определяют какой вариант цены будет отображаться.
+
 ```
+{
+        "name": "1 неделя",
+        "price": 699,
+        "lengthInDays": 0,
+        "isPopular": true,
+        "isEndless": false,
+        "isDiscount": false,
+        "nonDiscountId": null,
+        "id": "f347d050-073c-4969-ae91-7346f935cf70",
+        "ownerId": "00000000-0000-0000-0000-000000000000",
+        "statusId": null,
+        "creationDateTime": "2024-03-07T14:18:38.5451758+03:00",
+        "deleted": false
+    },
+```
+Для оптимизации рендера на клиенте:
+1. преобразованы входящие данные в слайсе, таким образом:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+[
+  {discountMinPrice:599
+  discountPercentage:30 discountPrice:699
+  id:"f347d050-073c-4969-ae91-73411week"
+  price:999
+  text:"Чтобы просто начать 👍🏻"
+  type:"1 неделя"
+  }
+]
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+2. Данные по таймеру (критический срок, окончание) передаются в Контекст, чтобы избежать пробрасывания этих данных пропсами по дереву компонент.
+3. Таймер расположен в компоненте Header,  оттуда передаются данные в КОнтекст, чтобы избежать лишних ререндеров всех компонент, которые используют данные Контекста.
+4. Карточки с тарифами мемоизированы с помощью memo, и переданные в них коллбеки с помощью useCallback -  чтобы при переборе тарифов родилельская компонента не ререндерилась.
+5. Для отображения картинок применятся компонента Image Next.js
