@@ -17,7 +17,7 @@ export default function Popup({items, callbackClose}: Props) {
         setItemId(itemId)
     }
     return (
-        <div className={'flex flex-col justify-center items-center w-[750px] h-[658px] bg-background-primary px-[37px]  relative before:content-"горящее_предложение" before:absolute before:top-[15px] before:left-[30px] before:transform before:-translate-y-1/2 before:bg-secondary before:pt-[4px] before:px-[10px] before:pb-[6px] before:text-foreground-secondary font-medium text-base leading-[1.3] tracking-wide'}>
+        <div className="flex flex-col justify-center items-center w-[750px] h-[658px] bg-background-primary px-[37px] relative before:content-['горящее_предложение'] before:absolute before:top-[15px] before:left-[30px] before:transform before:-translate-y-1/2 before:bg-secondary before:pt-[4px] before:px-[10px] before:pb-[6px] before:text-foreground-secondary before:font-medium before:text-base before:leading-[1.3] before:tracking-wide">
 
             <div className="absolute top-[25px] right-[25px] cursor-pointer" onClick={() => callbackClose(false)}>
                 <CloseSVG className="w-6 h-6"/>
