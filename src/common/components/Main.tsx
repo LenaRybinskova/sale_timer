@@ -1,20 +1,21 @@
 'use client';
 import Image from 'next/image';
 import tgBe2Card from './../../../public/assets/image/to_be_2_card.png';
-import Item from '@/common/components/Item';
 import Button from '@/common/components/Button';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import CheckIcon from '../../../public/assets/icons/CheckIcon';
 import {useTimerContext} from '@/common/utils/TimerProvider';
 import {fetchTariffs, selectForever, selectNotForever} from '@/store/tariffsSlice';
 import {useAppDispatch} from '@/store/hooks';
 import {useSelector} from 'react-redux';
-
+import {ItemMemo} from '@/common/components/Item';
+import {TariffList} from '@/common/components/ItemsList';
 
 
 export default function Main() {
     console.log('ререндер Main')
     const [isChecked, setIsChecked] = useState<boolean>(false)
+    const [selectItemId, seSelectItemId] = useState<string | ''>('')
 
     const dispatch = useAppDispatch();
     const monthlyTariffs = useSelector(selectNotForever);
@@ -23,7 +24,6 @@ export default function Main() {
     const context = useTimerContext();
     if (!context) return null;
     const {endTime, criticalTime} = context;
-    console.log("context.endTime", context.endTime)
 
     useEffect(() => {
         dispatch(fetchTariffs())
@@ -35,8 +35,9 @@ export default function Main() {
         }
     }, [criticalTime]);
 
-
-
+    const selectItemHandler = useCallback((itemId: string) => {
+        seSelectItemId(itemId)
+    }, []);
 
     return (
         <main className={'flex w-full p-[26px] px-[172px]'}>
@@ -48,10 +49,13 @@ export default function Main() {
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
                     <figure className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
                         <div className={'flex items-stretch justify-center  gap-[8px] mb-9 w-full h-[260px]'}>
+
+
                             {monthlyTariffs.map((tariff) => {
                                 return (
-                                    <Item
+                                    <ItemMemo
                                         key={tariff.id}
+                                        id={tariff.id}
                                         name={tariff.type}
                                         discountMinPrice={tariff.discountMinPrice}
                                         discountPrice={tariff.discountPrice}
@@ -61,14 +65,17 @@ export default function Main() {
                                         className="flex-1"
                                         criticalTime={criticalTime}
                                         endTime={endTime}
+                                        selected={selectItemId === tariff.id}
+                                        callbackSelectItem={selectItemHandler}
                                     />
                                 )
                             })}
 
                         </div>
                         {foreverTariffs.map((tariff) => (
-                            <Item
+                            <ItemMemo
                                 key={tariff.id}
+                                id={tariff.id}
                                 className={'w-full mb-[11px]'}
                                 variant={'horizontally'}
                                 discountPrice={tariff.foreverDiscountPrice}
@@ -77,9 +84,12 @@ export default function Main() {
                                 discountPercentage={tariff.discountPercentage}
                                 text={tariff.text}
                                 endTime={endTime}
+                                selected={selectItemId === tariff.id}
+                                callbackSelectItem={selectItemHandler}
                             />
                         ))}
-                        <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя плану
+                        <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>Следуя
+                            плану
                             на 3
                             месяца, люди получают в 2 раза лучший
                             результат, чем за 1 месяц</p>

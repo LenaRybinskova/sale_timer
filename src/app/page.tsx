@@ -20,14 +20,12 @@ export default function Home() {
     }, [context.endTime]);
 
     const hanldeCloseModal = (isOpen: boolean) => {
-        console.log("КРЕСТИК?")
         setIsOpenModal(isOpen)
     }
 
     return (
         <>
             <Main/>
-
             <Portal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} backdropClass="bg-black/50">
                 <Popup items={MonthlyTariffs} callbackClose={hanldeCloseModal}/>
             </Portal>

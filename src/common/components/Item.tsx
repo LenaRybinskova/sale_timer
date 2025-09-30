@@ -1,41 +1,31 @@
 'use client';
 import SaleLabelSVG from '../../../public/assets/icons/SaleLabelSVG';
+import React  from 'react';
 
 type Ptops = {
     className?: string
+    id: string
     variant?: 'horizontally' | 'vertically';
     selected?: boolean;
-
     name?: string
     discountMinPrice?: number
     discountPrice?: number
     price?: number
     discountPercentage?: number
     text?: string
-
     endTime?: boolean
-    criticalTime?:boolean
+    criticalTime?: boolean
+    callbackSelectItem: (id: string) => void
 }
 
-export default function Item({
-                                 className,
-                                 variant,
-                                 selected,
-                                 name,
-                                 discountPrice,
-                                 price,
-                                 text,
-                                 discountPercentage,
-                                 endTime,criticalTime
-                             }: Ptops) {
-
+export const  ItemMemo=React.memo(({className, variant, selected, name, discountPrice, price ,text, discountPercentage, criticalTime, callbackSelectItem, id}: Ptops)=> {
 
     return (
         <div className={`w-full flex border-2 border-border rounded-[20px] relative transition-all duration-300 ease-in-out hover:bg-background-card hover:border-secondary cursor-pointer
          ${selected ? 'bg-background-card border-secondary' : 'bg-foreground-secondary'} 
          ${className} ${variant === 'horizontally'
             ? 'flex-row  items-start justify-center  p-[31px_57px_26px_37px] '
-            : 'flex-col  items-center justify-center gap-[26px] p-[45px_35px_26px_37px]'}  `}>
+            : 'flex-col  items-center justify-center gap-[26px] p-[45px_35px_26px_37px]'}  `} onClick={() => callbackSelectItem(id)}>
 
             <h3 className={`whitespace-nowrap  
                 ${variant === 'horizontally'
@@ -63,7 +53,7 @@ export default function Item({
 
             <div className={'absolute top-[-40px] right-[20px] flex items-center justify-center'}>
                 <div className={'relative'}>
-                <SaleLabelSVG className="w-[70px] h-[70x]"/>
+                    <SaleLabelSVG className="w-[70px] h-[70x]"/>
                     <div className={'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm font-medium text-[18px] leading-[130%]'}>
                         -{discountPercentage}%
                     </div>
@@ -72,4 +62,4 @@ export default function Item({
 
         </div>
     );
-}
+})
