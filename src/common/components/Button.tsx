@@ -3,6 +3,7 @@
 type Props = {
     label: string,
     className?:string
+
 }
 
 export default function Button({label, className}: Props) {

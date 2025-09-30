@@ -18,13 +18,18 @@ export default function Home() {
             setIsOpenModal(true);
         }
     }, [context.endTime]);
-console.log("Home данные слайсов:",MonthlyTariffs )
+
+    const hanldeCloseModal = (isOpen: boolean) => {
+        console.log("КРЕСТИК?")
+        setIsOpenModal(isOpen)
+    }
+
     return (
         <>
             <Main/>
 
-            <Portal isOpen={true} onClose={() => setIsOpenModal(false)} backdropClass="bg-black/50">
-                <Popup items={MonthlyTariffs}/>
+            <Portal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} backdropClass="bg-black/50">
+                <Popup items={MonthlyTariffs} callbackClose={hanldeCloseModal}/>
             </Portal>
         </>
     );
