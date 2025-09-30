@@ -2,13 +2,19 @@
 import Image from 'next/image';
 import tgBe2Card from './../../../public/assets/image/to_be_2_card.png';
 import Button from '@/common/components/Button';
-import { useEffect, useState } from 'react';
+import {lazy, Suspense, useEffect, useState} from 'react';
 import CheckIcon from '../../../public/assets/icons/CheckIcon';
 import { useTimerContext } from '@/common/utils/TimerProvider';
 import { fetchTariffs, selectForever, selectNotForever } from '@/store/tariffsSlice';
 import { useAppDispatch } from '@/store/hooks';
 import { useSelector } from 'react-redux';
-import { ItemsList } from '@/common/components/ItemsList';
+import {ItemsListSkeleton} from '@/common/components/SceletonItems';
+
+const ItemsList = lazy(() => import('@/common/components/ItemsList').then(mod => ({ default: mod.ItemsList })));
+
+function ItemsListFallback() {
+    return <ItemsListSkeleton />;
+}
 
 export default function Main() {
     console.log('ререндер Main')
@@ -55,12 +61,14 @@ export default function Main() {
                     <Image src={tgBe2Card} alt={'to_be'} width={434} height={715} priority/>
                     <div className={'flex flex-col items-center justify-center gap-[8px] w-full'}>
 
-                        <ItemsList
-                            monthlyTariffs={monthlyTariffs}
-                            foreverTariffs={foreverTariffs}
-                            criticalTime={criticalTime}
-                            endTime={endTime}
-                        />
+                        <Suspense fallback={<ItemsListFallback />}>
+                            <ItemsList
+                                monthlyTariffs={monthlyTariffs}
+                                foreverTariffs={foreverTariffs}
+                                criticalTime={criticalTime}
+                                endTime={endTime}
+                            />
+                        </Suspense>
 
                         <p className={'w-full text-text font-medium text-[18px] leading-[130%] mb-[27px]'}>
                             Следуя плану на 3 месяца, люди получают в 2 раза лучший результат, чем за 1 месяц
