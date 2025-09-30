@@ -16,8 +16,8 @@ module.exports = nextConfig*/
 const nextConfig = {
     output: 'export',
     trailingSlash: true,
-    basePath: '/sale_timer',
-    assetPrefix: '/sale_timer/',
+/*    basePath: '/sale_timer',
+    assetPrefix: '/sale_timer/',*/
     images: {
         unoptimized: true
     }

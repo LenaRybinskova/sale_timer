@@ -19,8 +19,18 @@ export default function Main() {
     const foreverTariffs = useSelector(selectForever);
 
     const context = useTimerContext();
-    if (!context) return null;
-    const { endTime, criticalTime } = context;
+/*    if (!context) return null;*/
+    console.log('TimerContext:', context);
+    if (!context) {
+        return (
+            <main className={'flex w-full p-[26px] px-[172px]'}>
+                <div className={'flex items-center justify-center w-full flex-col'}>
+                    <div>Загрузка...</div>
+                </div>
+            </main>
+        );
+    }
+    const { endTime, criticalTime } = context || {};
 
     useEffect(() => {
         dispatch(fetchTariffs())
@@ -31,6 +41,8 @@ export default function Main() {
             setIsChecked(true);
         }
     }, [criticalTime]);
+
+
 
     return (
         <main className={'flex w-full p-[26px] px-[172px]'}>
