@@ -16,13 +16,9 @@ export default function Main() {
     console.log('ререндер Main')
     const [isChecked, setIsChecked] = useState<boolean>(false)
 
-
     const dispatch = useAppDispatch();
     const monthlyTariffs = useSelector(selectNotForever);
     const foreverTariffs = useSelector(selectForever);
-
-    console.log('foreverTariffs:', foreverTariffs)
-    console.log('notForeverTariffs:', monthlyTariffs)
 
     const context = useTimerContext();
     if (!context) return null;
@@ -63,6 +59,7 @@ export default function Main() {
                                         discountPercentage={tariff.discountPercentage}
                                         text={tariff.text}
                                         className="flex-1"
+                                        criticalTime={criticalTime}
                                         endTime={endTime}
                                     />
                                 )
@@ -103,7 +100,7 @@ export default function Main() {
                             </label>
                         </div>
 
-                        <Button label={'купить'} className={'flex items-center justify-start self-start mb-[30px] animate-pulse duration-200'}/>
+                        <Button label={'купить'} className={'flex items-center justify-start self-start mb-[30px] animate-pulse duration-200 uppercase'}/>
                         <p className={'flex items-center justify-start self-start text-text-second'}>
                             Нажимая «Купить», Пользователь соглашается на автоматическое списание денежных средств
                             по

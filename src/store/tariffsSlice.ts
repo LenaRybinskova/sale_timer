@@ -55,8 +55,6 @@ export const fetchTariffs = createAsyncThunk(
     'tariffs/fetchTariffs',
     async () => {
         const response = await tariffApi.getAllTariff();
-        console.log('Raw API response:', response);
-        console.log('MockData:', response.mockData);
         return response.mockData;
     }
 );

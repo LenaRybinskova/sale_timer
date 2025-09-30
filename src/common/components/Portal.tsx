@@ -16,12 +16,9 @@ const Portal: React.FC<PortalProps> = ({
                                        }) => {
     const [mounted, setMounted] = useState(false);
 
-    console.log('Portal rendered:', { isOpen, mounted });
 
     useEffect(() => {
-        console.log('Portal useEffect ');
         setMounted(true);
-
         if (isOpen) {
             document.body.style.overflow = 'hidden';
         }

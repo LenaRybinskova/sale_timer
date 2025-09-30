@@ -157,3 +157,10 @@ ul {
     /*  padding: 0; */
     box-sizing: border-box;
 }
+
+.btn-capitalize-first {
+    text-transform: lowercase;
+}
+.btn-capitalize-first::first-letter {
+    text-transform: uppercase;
+}

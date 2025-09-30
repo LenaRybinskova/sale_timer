@@ -13,13 +13,12 @@ export default function Home() {
     const context = useTimerContext();
 
     if (!context) return null;
-
     useEffect(() => {
         if (context.endTime) {
             setIsOpenModal(true);
         }
     }, [context.endTime]);
-
+console.log("Home данные слайсов:",MonthlyTariffs )
     return (
         <>
             <Main/>

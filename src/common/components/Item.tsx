@@ -14,6 +14,7 @@ type Ptops = {
     text?: string
 
     endTime?: boolean
+    criticalTime?:boolean
 }
 
 export default function Item({
@@ -25,7 +26,7 @@ export default function Item({
                                  price,
                                  text,
                                  discountPercentage,
-                                 endTime
+                                 endTime,criticalTime
                              }: Ptops) {
 
 
@@ -50,9 +51,9 @@ export default function Item({
             }`}>
                 <div className={`flex flex-col items-end ${variant === 'horizontally' ? 'w-auto' : 'w-full'}`}>
                     <div className="color-text text-[50px] leading-[110%] font-bold">
-                        {endTime ? price : discountPrice}p
+                        {criticalTime ? price : discountPrice}p
                     </div>
-                    <div className={`line-through text-text-muted ${endTime ? 'invisible' : 'visible'}`}>
+                    <div className={`line-through text-text-muted ${criticalTime ? 'invisible' : 'visible'}`}>
                         {price}p
                     </div>
                 </div>

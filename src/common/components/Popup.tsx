@@ -12,7 +12,8 @@ type Props = {
 
 export default function Popup({items}:Props) {
     return (
-        <div className={'flex flex-col justify-center items-center w-[750px] h-[658px] bg-background-primary px-[37px] py-[37px]'}>
+        /*        <div className={'flex flex-col justify-center items-center w-[750px] h-[658px] bg-background-primary px-[37px] py-[37px]'}>*/
+        <div className={"flex flex-col justify-center items-center w-[750px] h-[658px] bg-background-primary px-[37px] pt-[61px] relative before:content-['горящее_предложение'] before:absolute before:top-[15px] before:left-[30px] before:transform before:-translate-y-1/2 before:bg-secondary before:pt-[4px] before:px-[10px] before:pb-[6px] before:text-foreground-secondary font-medium text-base leading-[1.3] tracking-wide"}>
 
             <h3 className={'font-bold text-2xl leading-relaxed uppercase font-family-third flex gap-2 mb-[35px]'}>
                 <span>Не упусти</span>
@@ -36,11 +37,12 @@ export default function Popup({items}:Props) {
                     <span>Посмотри, что мы для тебя приготовили 🔥</span>
                 </h4>
                 <div className={"flex justify-center items-center gap-[10px]"}>
-                    {items.map(item => <ItemDiscount name={item.type} key={item.id} discountPercentage={item.discountPercentage} discountMinPrice={item.discountMinPrice} discountPrice = {item.discountPrice} />)}
+                    {items.map(item =>
+                        <ItemDiscount name={item.type} key={item.id} discountPercentage={item.discountPercentage} discountMinPrice={item.discountMinPrice} price={item.price}/>)}
                 </div>
             </div>
 
-            <Button label={"начать тренироваться"}/>
+            <Button label={"Начать тренироваться"} className={" font-[500] text-[20px] leading-[100%]"}/>
         </div>
     );
 }
