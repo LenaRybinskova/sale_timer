@@ -4,9 +4,9 @@ import { useTimerContext } from '@/common/utils/TimerProvider';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
-    //console.log('ререндер Header');
+    console.log('ререндер Header');
 
-    const [timeLeft, setTimeLeft] = useState(32);
+    const [timeLeft, setTimeLeft] = useState(36);
     const { endTime, criticalTime, setEndTime, setCriticalTime } = useTimerContext();
 
     useEffect(() => {
